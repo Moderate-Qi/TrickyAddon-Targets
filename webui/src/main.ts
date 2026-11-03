@@ -16,6 +16,8 @@ import { Keybind } from './keybind'
 import { LOCAL_STORAGE_PREFIX } from './constant'
 import './style.scss'
 import { isDev } from './utils/dev'
+import { TargetAutomation } from './target_automation'
+import { TargetAutomationDialog } from './dialog/target_automation'
 
 await i18n.init()
 
@@ -74,6 +76,11 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = /* html */ `
 
 // App List
 const appList = new AppList(config, cli)
+const targetAutomation = new TargetAutomation(cli)
+try {
+  const state = await targetAutomation.run('status')
+  if (state.supported && (config.identity === 'TS-L' || isDev())) appList.defaultMode = state.mode
+} catch {}
 await config.read()
 await appList.fetch()
 appList.syncSystemAppsWithConfig()
@@ -130,6 +137,8 @@ mainMenu.on('menu-select-denylist', async () => appList.fetchDenyList())
 mainMenu.on('menu-deselect-unnecessary', async () => appList.deselectUnnecessary())
 mainMenu.on('menu-prop-setting', () => dialogController.showProp())
 mainMenu.on('menu-default-policy', () => dialogController.showDefaultPolicy())
+mainMenu.on('menu-target-automation', () => void targetAutomationDialog.show())
+if (config.identity !== 'TS-L' && !isDev()) mainMenu.hideItem('target-automation')
 mainMenu.on('menu-help', () => dialogController.showHelp())
 mainMenu.on('menu-about', () => dialogController.showAbout())
 mainMenu.on('menu-i18n-guide', () => dialogController.showI18nDialog())
@@ -177,6 +186,9 @@ keybind.on('keybind-esc', () => history.back())
 // Dialog
 const dialogController = new DialogController(cli, config, updateManager, snackbar, appList)
 const dialogContent = document.querySelector<HTMLElement>('.dialog-content')!
+const targetAutomationDialog = new TargetAutomationDialog(targetAutomation, appList, snackbar)
+dialogContent.appendChild(targetAutomationDialog.getElement())
+targetAutomationDialog.initAnimation()
 fileSelector.appendTo(dialogContent)
 keybox.appendTo(dialogContent)
 keyboxRepo.appendTo(dialogContent)

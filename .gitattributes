@@ -4,3 +4,12 @@
 # Denote all files that are truly binary and should not be modified.
 *.png binary
 *.woff2 binary
+
+# Preserve publication images and approved documents verbatim.
+*.jpg binary
+/BUILDING.md -text
+/changelog.md -text
+/CHANGELOG_LOCAL.md -text
+/NOTICE.md -text
+/README.md -text
+/RELEASE_NOTES.md -text

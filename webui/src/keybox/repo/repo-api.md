@@ -1,14 +1,8 @@
-# Keybox Repository — Iframe Integration API (For Self-Hosted Repo Sites)
+# Keybox Repository · Iframe Integration API
 
-This document describes the `postMessage` protocol that a self-hosted Keybox Repository website must implement in order to be embeddable as an iframe in Tricky Addon's settings page.
+Connect a self-hosted repository to TrickyAddon's settings page through `postMessage`. The protocol covers handshake, download and error responses.
 
-If you are **forking this project** and want to build your own Keybox Repository website, this is the contract your frontend must follow. Everything beyond the protocol section is optional — just suggestions to help you get started.
-
----
-
-## Protocol (The Only Hard Requirement)
-
-The entire integration boils down to **three postMessage messages**. Implement these on your repo website and it will work with Tricky Addon.
+## Protocol
 
 ### 1. Handshake
 
@@ -19,14 +13,14 @@ Parent → Your Iframe
 { "type": "handshake" }
 ```
 
-Your site **must** reply once to establish the channel:
+Reply once to establish the channel:
 
 ```
 Your Iframe → Parent
 { "type": "handshake_ack" }
 ```
 
-**Why this matters:** You must capture `event.origin` from the incoming handshake and use it as `targetOrigin` in all your outgoing `postMessage` calls. Without this, your messages go nowhere — `postMessage` with a `targetOrigin` of `*` would leak download URLs to any listening window.
+Capture `event.origin` from the handshake and use that origin as `targetOrigin` for outgoing messages.
 
 ### 2. Download
 
@@ -44,9 +38,9 @@ Your Iframe → Parent
 
 Tricky Addon fetches this URL and sets the response body as the active keybox.
 
-### 3. Error (Optional but Recommended)
+### 3. Error
 
-If you can't serve the download:
+Send an error response when a download fails:
 
 ```
 Your Iframe → Parent
@@ -67,15 +61,14 @@ Tricky Addon will show an error snackbar to the user and close the repo overlay.
 
 Use the standard check `window.top !== window.self` to detect iframe mode. When embedded:
 
-- **Suppress standalone UI** — Hide the theme toggle, hide action buttons (Share/Download) on selected cards
-- **Immediate download on click** — Selecting a card should immediately trigger download, no extra button press needed
-- **Hide upload** — The parent app handles setting keyboxes; don't expose upload in iframe mode
+- **Embedded layout** — Show the repository cards, with theme and upload management handled by the parent application.
+- **Card selection** — Send the download message immediately when the user selects a card.
 
 ---
 
 ## Reference Implementation
 
-This is exactly how the reference repo site does it — borrow what you like, ignore what you don't:
+The reference below implements iframe detection, handshake and download responses:
 
 ```typescript
 class IframeHandler {
@@ -120,7 +113,7 @@ useEffect(() => {
 
 ## Reference: How Tricky Addon Integrates
 
-To help you reason about the parent side, here is what Tricky Addon does:
+TrickyAddon handles the parent side as follows:
 
 1. Creates an iframe pointing to your repo URL with permissions `clipboard-read; clipboard-write`
 2. Sends `{ type: "handshake" }` every 500ms until it receives `handshake_ack`
@@ -131,9 +124,9 @@ To help you reason about the parent side, here is what Tricky Addon does:
 
 ---
 
-## Optional: Backend API Structure
+## Backend API Example
 
-Your backend needs to serve two things: keybox listings for the UI, and keybox files for download. Here is how the reference backend does it:
+A backend serves repository listings and download files. Example endpoints:
 
 | Method | Path                               | Purpose                                   |
 |--------|------------------------------------|-------------------------------------------|
@@ -143,7 +136,7 @@ Your backend needs to serve two things: keybox listings for the UI, and keybox f
 | `POST` | `/api/keyboxes`                    | Upload a new keybox (standalone mode only) |
 | `GET`  | `/download/:token`                 | Serve the keybox file                     |
 
-The download flow in the reference uses **one-time tokens** — `POST /api/keyboxes/:identity/download` returns a single-use URL that expires after 24h. This is a good security practice but entirely optional. You could serve files directly, use signed URLs, or any other mechanism.
+The example uses **one-time tokens**. `POST /api/keyboxes/:identity/download` returns a URL valid for one download within 24 hours. A repository can also use direct file URLs or signed URLs.
 
 ```json
 // POST /api/keyboxes/:identity/download → 200

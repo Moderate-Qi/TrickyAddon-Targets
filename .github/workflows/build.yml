@@ -1,17 +1,7 @@
 name: build
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'module/**'
-      - 'webui/**'
-      - '.github/workflows/**'
-  pull_request:
-    paths:
-      - 'module/**'
-      - 'webui/**'
+  workflow_dispatch:
   workflow_dispatch:
 
 env:

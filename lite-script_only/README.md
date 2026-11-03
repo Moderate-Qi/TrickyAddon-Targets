@@ -1,9 +1,8 @@
-## Tricky Addon Lite: Update Target List Script (EOL)
-- Script only, **NOT Module**
-- Run with root priviledge
-- Recommend to run with MT manager
+# TrickyAddon Lite · Target List Script
 
-## Changelog
+Root script edition. Run the script from MT Manager's Root terminal. The maintained WebUI edition and automatic target management are described in the [project README](../README.md).
+
+## Script version history
 ### v2.8
 - Remove wait time
 

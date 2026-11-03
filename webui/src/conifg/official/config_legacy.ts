@@ -7,9 +7,9 @@ import type { ConfigData, Policy } from '../config'
 function parseTarget(raw: string): string[] {
   const targets: string[] = []
   for (const line of raw.split('\n')) {
-    const trimmed = line.trim()
+    const trimmed = line.split('#', 1)[0].trim()
     if (trimmed === '' || trimmed.startsWith('#')) continue
-    targets.push(trimmed)
+    targets.push(trimmed.replace(/\s+([!?])$/, '$1'))
   }
   return targets
 }
@@ -133,6 +133,10 @@ export class ConfigLegacy extends Config {
   protected override readonly perAppConfig: boolean = true
 
   override readonly policySchema: PolicySchema = LEGACY_POLICY_SCHEMA
+
+  override async writeTarget(): Promise<void> {
+    if (!isDev()) await file.write(this.CONFIG_FILE, serializeTarget(this.get().target || []))
+  }
 
   override async read(): Promise<void> {
     const data: ConfigData = {}

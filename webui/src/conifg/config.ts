@@ -102,6 +102,10 @@ export abstract class Config {
   abstract read(): Promise<void>
   abstract write(): Promise<void>
 
+  async writeTarget(): Promise<void> {
+    await this.write()
+  }
+
   get(): ConfigData
   get(section: string): Policy | string[] | undefined
   get(section?: string): ConfigData | Policy | string[] | undefined {

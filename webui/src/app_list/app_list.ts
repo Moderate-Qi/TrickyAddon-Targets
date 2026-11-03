@@ -3,6 +3,7 @@ import type { PackageInfoPerUid } from 'kernelsu-alt'
 import type { MdDialog } from '@material/web/all'
 import { Cli } from '../cli'
 import { Config } from '../conifg/config'
+import type { TargetMode } from '../target_automation'
 import { i18n } from '../i18n'
 import { GITHUB_REPO, LOCAL_STORAGE_PREFIX } from '../constant'
 import { applyDialogAnimation } from '../dialog/animation'
@@ -39,6 +40,18 @@ export class AppList {
   #container: HTMLElement | null = null
   #policyEditor!: PolicyEditor
   menuOpen = false
+  defaultMode: TargetMode = 'auto'
+
+  #newTarget(pkg: string): string {
+    return `${pkg}${this.defaultMode === 'generate' ? '!' : this.defaultMode === 'hack' ? '?' : ''}`
+  }
+
+  setAllInstalledMode(mode: TargetMode): void {
+    const suffix = mode === 'generate' ? '!' : mode === 'hack' ? '?' : ''
+    const targets = (this.#config.get('target') as string[]) || []
+    const packages = new Set([...targets.map(stripSuffix), ...this.#entries.map(e => e.packageName)])
+    this.#config.set('target', Array.from(packages, pkg => `${pkg}${suffix}`))
+  }
 
   constructor(config: Config, cli: Cli) {
     this.#config = config
@@ -84,9 +97,13 @@ export class AppList {
     return this.#entries
   }
 
+  getTargetCount(): number {
+    return ((this.#config.get('target') as string[]) || []).length
+  }
+
   async save(): Promise<void> {
     if (isDev()) return
-    await this.#config.write()
+    await this.#config.writeTarget()
   }
 
   async refresh(force: boolean = true): Promise<void> {
@@ -147,11 +164,12 @@ export class AppList {
     this.#container.querySelectorAll<HTMLElement>('.card').forEach(card => {
       const pkg = card.dataset.package!
       if (!target.some(t => stripSuffix(t) === pkg)) {
-        this.#config.push('target', pkg)
+        this.#config.push('target', this.#newTarget(pkg))
       }
       card.querySelector('md-checkbox')!.checked = true
       card.classList.add('selected')
     })
+    this.#syncCheckboxes()
   }
 
   deselectAll(): void {
@@ -169,7 +187,7 @@ export class AppList {
     if (denylist.length < 1) return
     const target = (this.#config.get('target') as string[]) || []
     for (const pkg of denylist) {
-      if (!target.includes(pkg)) this.#config.push('target', pkg)
+      if (!target.some(t => stripSuffix(t) === pkg)) this.#config.push('target', this.#newTarget(pkg))
     }
     this.#syncCheckboxes()
   }
@@ -345,10 +363,11 @@ export class AppList {
           card.classList.remove('selected')
           checkbox.classList.remove('checkbox-checked-generated', 'checkbox-checked-hack')
         } else {
-          this.#config.push('target', pkg)
+          this.#config.push('target', this.#newTarget(pkg))
           checkbox.checked = true
           card.classList.add('selected')
         }
+        this.#syncCheckboxes()
       }
 
       card.addEventListener('contextmenu', (e) => {
@@ -384,7 +403,7 @@ export class AppList {
       const isChecked = checkedApps.includes(pkg)
 
       if (isChecked && targetIdx === -1) {
-        this.#config.push('target', pkg)
+        this.#config.push('target', this.#newTarget(pkg))
       } else if (!isChecked && targetIdx !== -1) {
         this.#config.removeMatch('target', t => stripSuffix(t) === pkg)
       }

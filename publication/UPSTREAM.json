@@ -1,0 +1,9 @@
+{
+  "project": "TrickyAddon",
+  "url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List",
+  "base_commit": "e7d95a064efccfff3c6c17fa8e652155a547643a",
+  "local_version": "739674-targets.2",
+  "release_asset": "TrickyAddon-739674-targets.2.zip",
+  "maintainer": "Moderate-Qi",
+  "prepared": "2026-11-03"
+}

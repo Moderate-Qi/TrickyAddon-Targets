@@ -1,45 +1,66 @@
-# Tricky Addon - Update Target List
+# TrickyAddon · 目标管理增强版
 
-Configure TrickyStore via KSU WebUI.
+基于 TrickyAddon 739674-canary，增加默认模式、自动加入应用、批量调整和备份恢复。习惯使用 **! 模式** 时，可以把目标列表维护集中在 WebUI 中完成。
 
-[![GitHub Release](https://img.shields.io/github/v/release/KOWX712/Tricky-Addon-Update-Target-List?logo=github&label=Release)](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/releases/latest)
-[![Pre Release](https://img.shields.io/github/v/release/KOWX712/Tricky-Addon-Update-Target-List?include_prereleases&logo=github&label=Pre-release)](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/releases)
-[![Nightly Release](https://img.shields.io/badge/Nightly-canary_build-640064?logo=githubactions&logoColor=fff)](https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build/main?preview)
-[![Crowdin](https://img.shields.io/badge/Localization-Crowdin-palegreen?logo=Crowdin)](https://crowdin.com/project/TA_utl)
+基于版本：**739674-canary**。增强维护：[Moderate-Qi](https://github.com/Moderate-Qi)。
 
-> [!WARNING]
-> This module is **not** a part of the Tricky Store module. DO NOT report any issues to Tricky Store if encountered.
+## 相比原版增加
 
-## Requirements
+- **新增应用默认使用 ! 模式。** 默认选择“生成证书链（!）”，也可以在 WebUI 调整默认模式。
+- **自动补齐已安装应用。** 开启后每 60 秒同步一次，覆盖系统应用与用户应用，新安装应用会在后续同步中加入。
+- **保留手动指定的模式。** 已有应用的个人设置继续沿用，自动添加与手动管理配合使用。
+- **一键全部设为 !。** 提供批量调整按钮，统一设置更方便。
+- **自动备份与恢复。** 保存启用自动管理前的目标列表，WebUI 提供恢复入口。
+- **同步情况直接显示。** 查看当前目标数量和最近同步时间，方便确认列表更新。
 
-Install any of the following:
+## 使用方式
 
-- [TrickyStore](https://github.com/5ec1cff/TrickyStore)
-- [TEESimulator](https://github.com/JingMatrix/TEESimulator)
-- [OhMyKeymint](https://github.com/qwq233/OhMyKeymint)
+1. 从本仓库 Releases 下载 `TrickyAddon-739674-targets.2.zip`，在 SukiSU Ultra 中刷入并重启。
+2. 打开模块 WebUI，进入“默认模式与自动添加”。
+3. 选择新增应用的默认模式，按需开启“自动补齐全部已安装应用”，保存设置。
+4. 希望统一调整时，使用“全部应用统一为生成模式（!）”；日常个别应用继续手动设置。
 
-## Instructions
+## 实测环境
 
-### KernelSU & Apatch
+小米 14 Ultra，HyperOS 3.0.5.0，Android 16，SukiSU Ultra v4.3.0 / 41131-6（LKM），Zygisk Next 1.5.2（864），LSPosed 2.2.1（7912）。系统原始安全补丁日期为 2025-11-01。
 
-- Built-in WebUI
+## 界面与实测截图
 
-### Magisk
+### TrickyAddon：自动添加、默认 ! 模式与同步状态
 
-- Action button to open WebUI
-- Support [KSUWebUIStandalone](https://github.com/KOWX712/KsuWebUIStandalone) and [WebUI X](https://github.com/MMRLApp/WebUI-X-Portable)
-- Automatic KSUWebUIStandalone install if none of them are installed.
+<a href="docs/screenshots/trickyaddon.jpg"><img src="docs/screenshots/trickyaddon.jpg" alt="TrickyAddon：自动添加、默认 ! 模式与同步状态" width="360"></a>
 
-## Features
+### 实测框架：SukiSU Ultra 41131-6 与 Zygisk Next 1.5.2
 
-- Config target list, mode, security patch and keybox.
-- View 'Help' menu in WebUI for more info.
+<a href="docs/screenshots/sukisu-ultra.jpg"><img src="docs/screenshots/sukisu-ultra.jpg" alt="实测框架：SukiSU Ultra 41131-6 与 Zygisk Next 1.5.2" width="360"></a>
 
-## Localization
-- Read [Translation Guide](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/blob/main/webui/public/locales/GUIDE.md)
+### 配合 TS-OSS：TEE Demo 1.7 通过 77 项
 
-## Links
-[![release](https://custom-icon-badges.demolab.com/badge/-Download-F25278?style=for-the-badge&logo=download&logoColor=white)](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/releases)
-[![issue](https://custom-icon-badges.demolab.com/badge/-Open%20Issue-palegreen?style=for-the-badge&logoColor=black&logo=issue-opened)](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/issues)
-[![changelog](https://custom-icon-badges.demolab.com/badge/-Update%20History-orange?style=for-the-badge&logo=history&logoColor=white)](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/blob/main/changelog.md)
-[![Telegram](https://custom-icon-badges.demolab.com/badge/-KOW's%20little%20world-blue?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/kowchannel)
+<a href="docs/screenshots/tee-demo-17.jpg"><img src="docs/screenshots/tee-demo-17.jpg" alt="配合 TS-OSS：TEE Demo 1.7 通过 77 项" width="360"></a>
+
+### 配合 TS-OSS：Luna 1.4.4.6 可信环境
+
+<a href="docs/screenshots/luna-1446.jpg"><img src="docs/screenshots/luna-1446.jpg" alt="配合 TS-OSS：Luna 1.4.4.6 可信环境" width="360"></a>
+
+### 配合日期管理：Trust Attestor 四层通过
+
+<a href="docs/screenshots/trustattestor-15.jpg"><img src="docs/screenshots/trustattestor-15.jpg" alt="配合日期管理：Trust Attestor 四层通过" width="360"></a>
+
+## 来源、版权与许可证
+
+上游项目：[739674 / e7d95a0；KOWX712 及原项目贡献者](https://github.com/KOWX712/Tricky-Addon-Update-Target-List)。功能增强、集成和文档由 Moderate-Qi 维护，保留原作者署名与第三方版权记录。
+
+[Apache-2.0](LICENSE)。具体修改、来源和构建入口见 [CHANGELOG_LOCAL.md](CHANGELOG_LOCAL.md)、[NOTICE.md](NOTICE.md) 和 [BUILDING.md](BUILDING.md)。
+
+## 配套项目
+
+- [PIF 日期管理增强版](https://github.com/Moderate-Qi/PlayIntegrityFix)
+- [TS-OSS 199 兼容增强版](https://github.com/Moderate-Qi/TrickyStoreOSS)
+- [HMA-OSS UID 一体化增强版](https://github.com/Moderate-Qi/HMA-OSS-UID)
+- [DuckUSB Service 服务增强版](https://github.com/Moderate-Qi/DuckUSB-Service)
+
+## 免责声明
+
+如有侵权请联系我删除。
+
+仅代表本人使用的当前系统和当前环境下的实测结果，且通过相关检测器不代表所有软件都检测不到环境异常，请勿用于游戏作弊等场景。

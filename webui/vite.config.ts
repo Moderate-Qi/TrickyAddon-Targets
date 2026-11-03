@@ -4,7 +4,7 @@ export default defineConfig({
   base: '',
   build: {
     outDir: '../module/webui',
-    emptyOutDir: true,
+    emptyOutDir: false,
     cssCodeSplit: false,
   },
 })

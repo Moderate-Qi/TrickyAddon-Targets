@@ -1,7 +1,6 @@
 id=TA_utl
-name=Tricky Addon - Update Target List
-version=v5.0-beta.4
-versionCode=729
-author=KOWX712
-description=A WebUI to conifgure tricky store target.txt 
-updateJson=https://raw.githubusercontent.com/KOWX712/Tricky-Addon-Update-Target-List/main/update.json
+name=Tricky Addon - Local Generate
+version=739674-targets.2
+versionCode=740
+author=KOWX712; local target extension by Codex
+description=Latest upstream TA plus default generation mode, all-app target automation, and target-list restore.

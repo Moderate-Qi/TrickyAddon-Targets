@@ -67,6 +67,9 @@ done
 
 sh "$MODPATH/common/get_extra.sh" --xposed >/dev/null 2>&1
 
+# Local target automation; existing per-app overrides are preserved after initial setup.
+sh "$MODPATH/target-automation.sh" daemon >/dev/null 2>&1 &
+
 # Clean up
 if [ ! "$RUNTIME" = "$TEES" ]; then
     # Hide module from APatch, KernelSU, KSUWebUIStandalone, MMRL

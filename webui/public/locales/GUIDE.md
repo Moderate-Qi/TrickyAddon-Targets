@@ -1,13 +1,13 @@
-# Translation Guide
+# WebUI Translation Guide
 
-## Update Existing Language
+## Update a language
 
-- Update translation in [Crowdin](https://crowdin.com/project/TA_utl).
-- Add your name to [translation contibutor list](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/blob/main/webui/public/locales/CONTRIBUTOR.md) (Issue/Pull Request).
+1. Update the translation in [Crowdin](https://crowdin.com/project/TA_utl).
+2. Add your name to [CONTRIBUTOR.md](CONTRIBUTOR.md).
+3. Submit the contribution through an issue or pull request in [Moderate-Qi/TrickyAddon](https://github.com/Moderate-Qi/TrickyAddon).
 
----
+## Add a language
 
-## Add a New Language
-
-- Create you translation based on [template](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/blob/main/webui/public/locales/template.xml).
-- Create an [issues](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/issues/new/choose) for language request and upload translated file in zip format (compressed).
+1. Translate the XML values using `template.xml` as the starting point.
+2. Package the translated file as a ZIP.
+3. Open a language request with the ZIP in the project's issue tracker.

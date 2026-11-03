@@ -49,7 +49,7 @@ ui_print "- Installing..."
 # Magisk cleanup
 rm -rf "/data/adb/modules/.TA_utl"
 
-if [ -n "$ACTION"]; then
+if [ -n "$ACTION" ]; then
     mkdir -p "$MODPATH/common/update/common"
     cp "$MODPATH/common/.default" "$MODPATH/common/update/common/.default"
     cp "$MODPATH/uninstall.sh" "$MODPATH/common/update/uninstall.sh"
@@ -58,6 +58,8 @@ fi
 cp "$MODPATH/module.prop" "$MODPATH/common/update/module.prop"
 
 set_perm $MODPATH/common/get_extra.sh 0 2000 0755
+set_perm $MODPATH/target-automation.sh 0 0 0755
+set_perm $MODPATH/target-merge.awk 0 0 0644
 
 ui_print "- Finalizing..."
 
