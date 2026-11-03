@@ -6,7 +6,7 @@
 
 A **KSU WebUI** to configure tricky store target.txt
 
-TrickyAddon target management is maintained as a separate project. Project feedback: [Moderate-Qi/TrickyAddon](https://github.com/Moderate-Qi/TrickyAddon/issues).
+TrickyAddon target management is maintained as a separate project. Project feedback: [Moderate-Qi/TrickyAddon-Targets](https://github.com/Moderate-Qi/TrickyAddon-Targets).
 
 GitHub release: [Tricky Addon: Update Target List](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/releases/latest)
 

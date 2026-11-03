@@ -4,7 +4,7 @@
 
 1. Update the translation in [Crowdin](https://crowdin.com/project/TA_utl).
 2. Add your name to [CONTRIBUTOR.md](CONTRIBUTOR.md).
-3. Submit the contribution through an issue or pull request in [Moderate-Qi/TrickyAddon](https://github.com/Moderate-Qi/TrickyAddon).
+3. Submit the contribution through an issue or pull request in [Moderate-Qi/TrickyAddon-Targets](https://github.com/Moderate-Qi/TrickyAddon-Targets).
 
 ## Add a language
 
