@@ -1,6 +1,6 @@
 id=TA_utl
 name=Tricky Addon - Local Generate
-version=739674-targets.2
-versionCode=740
+version=92094e4-targets.3
+versionCode=741
 author=KOWX712; local target extension by Codex
 description=Latest upstream TA plus default generation mode, all-app target automation, and target-list restore.

@@ -1,8 +1,8 @@
 # TrickyAddon · 目标管理增强版
 
-基于 TrickyAddon 739674-canary，增加默认模式、自动加入应用、批量调整和备份恢复。习惯使用 **! 模式** 时，可以把目标列表维护集中在 WebUI 中完成。
+基于 TrickyAddon 92094e4，增加默认模式、自动加入应用、批量调整和备份恢复。习惯使用 **! 模式** 时，可以把目标列表维护集中在 WebUI 中完成。
 
-基于版本：**739674-canary**。增强维护：[Moderate-Qi](https://github.com/Moderate-Qi)。
+基于版本：**92094e4**。增强维护：[Moderate-Qi](https://github.com/Moderate-Qi)。
 
 ## 相比原版增加
 
@@ -15,7 +15,7 @@
 
 ## 使用方式
 
-1. 从本仓库 Releases 下载 `TrickyAddon-739674-targets.2.zip`，在 SukiSU Ultra 中刷入并重启。
+1. 从本仓库 Releases 下载 `TrickyAddon-92094e4-targets.3.zip`，在 SukiSU Ultra 中刷入并重启。
 2. 打开模块 WebUI，进入“默认模式与自动添加”。
 3. 选择新增应用的默认模式，按需开启“自动补齐全部已安装应用”，保存设置。
 4. 希望统一调整时，使用“全部应用统一为生成模式（!）”；日常个别应用继续手动设置。
@@ -48,7 +48,7 @@
 
 ## 来源、版权与许可证
 
-上游项目：[739674 / e7d95a0；KOWX712 及原项目贡献者](https://github.com/KOWX712/Tricky-Addon-Update-Target-List)。功能增强、集成和文档由 Moderate-Qi 维护，保留原作者署名与第三方版权记录。
+上游项目：[92094e4；KOWX712 及原项目贡献者](https://github.com/KOWX712/Tricky-Addon-Update-Target-List)。功能增强、集成和文档由 Moderate-Qi 维护，保留原作者署名与第三方版权记录。
 
 [Apache-2.0](LICENSE)。具体修改、来源和构建入口见 [CHANGELOG_LOCAL.md](CHANGELOG_LOCAL.md)、[NOTICE.md](NOTICE.md) 和 [BUILDING.md](BUILDING.md)。
 
